@@ -2,6 +2,7 @@
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
+using MonoGame.Extended;
 
 namespace Eolnyss
 {
@@ -14,13 +15,12 @@ namespace Eolnyss
         SpriteBatch spriteBatch;
 
         Level level;
+        Camera2D camera;
 
         public Game1()
         {
             graphics = new GraphicsDeviceManager(this);
             Content.RootDirectory = "Content";
-
-            this.level = new Level();
         }
 
         /// <summary>
@@ -32,6 +32,8 @@ namespace Eolnyss
         protected override void Initialize()
         {
             // TODO: Add your initialization logic here
+            this.level = new Level();
+            this.camera = new Camera2D(graphics.GraphicsDevice);
 
             base.Initialize();
         }
@@ -70,6 +72,7 @@ namespace Eolnyss
 
             // TODO: Add your update logic here
             this.level.Update(gameTime);
+            this.camera.LookAt(this.level.Player.Position);
 
             base.Update(gameTime);
         }
@@ -82,7 +85,9 @@ namespace Eolnyss
         {
             GraphicsDevice.Clear(Color.CornflowerBlue);
 
-            spriteBatch.Begin();
+            var viewMatrix = this.camera.GetViewMatrix();
+
+            spriteBatch.Begin(transformMatrix: viewMatrix);
 
             // TODO: Add your drawing code here
             this.level.Draw(gameTime, spriteBatch);
