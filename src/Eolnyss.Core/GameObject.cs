@@ -9,6 +9,8 @@ namespace Eolnyss.Core
 {
     public abstract class GameObject
     {
+        public abstract Vector2 Position { get; }
+
         public abstract void Update(GameTime gameTime);
     }
 }
