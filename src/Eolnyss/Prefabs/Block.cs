@@ -29,6 +29,9 @@ namespace Eolnyss.Prefabs
                 case BlockType.Spike:
                     spriteBatch.Draw(Assets.SpikeTexture, Bounds, Color.White);
                     break;
+                case BlockType.Goal:
+                    spriteBatch.Draw(Assets.GoalTexture, Bounds, Color.White);
+                    break;
             }
         }
 
@@ -40,6 +43,7 @@ namespace Eolnyss.Prefabs
     public enum BlockType
     {
         Platform,
-        Spike
+        Spike,
+        Goal
     }
 }

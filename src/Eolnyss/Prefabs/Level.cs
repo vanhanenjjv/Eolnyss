@@ -21,6 +21,9 @@ namespace Eolnyss.Prefabs
         public Player Player => this.player;
         public List<Block> Blocks => this.blocks;
 
+        private Vector2 start;
+        private Vector2 goal;
+
         public Level()
         {
             this.world = new World();
@@ -29,9 +32,11 @@ namespace Eolnyss.Prefabs
 
             var box = this.world.Create(160, 80, 40, 40);
 
-            this.player = new Player(box);
-
             LoadLevel("");
+
+            this.player = new Player(box, start);
+
+            
         }
 
         public override Vector2 Position => new Vector2(0, 0);
@@ -99,9 +104,15 @@ namespace Eolnyss.Prefabs
             {
                 case '.':
                     return null;
+                case 'p':
+                    start = new Vector2(x * 40, y * 40);
+                    return null;
+                case 'g':
+                    return new Block(this.world.Create(x * 40, y * 40, 40, 40), BlockType.Goal);
+                case 'v':
+                    return new Block(this.world.Create(x * 40, y * 40, 40, 40), BlockType.Spike);
                 case 'x':
-                    var box = this.world.Create(x * 40, y * 40, 40, 40);
-                    return new Block(box, BlockType.Platform);
+                    return new Block(this.world.Create(x * 40, y * 40, 40, 40), BlockType.Platform);
                 default:
                     throw new Exception();
             }

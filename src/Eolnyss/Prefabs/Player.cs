@@ -10,8 +10,10 @@ namespace Eolnyss.Prefabs
 {
     public class Player : PhysicsObject
     {
+        private readonly Vector2 start;
+
         private const float MaxJumpTime = 0.3f;
-        private const float JumpLaunchVelocity = -2000.0f;
+        private const float JumpLaunchVelocity = -2040.0f;
         private const float Gravity = 21000.0f;
         private const float MaxFallSpeed = 2000.0f;
         private const float JumpControlPower = 0.14f;
@@ -23,9 +25,11 @@ namespace Eolnyss.Prefabs
 
         private Vector2 movement;
 
-        public Player(IBox box) : base(box)
+        public Player(IBox box, Vector2 start) : base(box)
         {
-            
+            this.start = start;
+
+            Reset(start);
         }
 
         public bool IsOnGround => this.isOnGround;
@@ -43,7 +47,7 @@ namespace Eolnyss.Prefabs
 
             isOnGround = false;
 
-            movement.X = 400;
+            movement.X = 390;
 
             if (isJumping)
             {
@@ -99,15 +103,21 @@ namespace Eolnyss.Prefabs
                 side.HasFlag(Side.Left) ||
                 side.HasFlag(Side.Top))
             {
-
+                Reset(start);
             }
-                //Reset();
+
+            var box = collisionArgs.Box;
         }
 
         public void HandleInput()
         {
             if (Keyboard.GetState().IsKeyDown(Keys.Space) && IsOnGround)
                 isJumping = true;
+        }
+
+        public void Reset(Vector2 start)
+        {
+            Box.Move(start.X, start.Y);
         }
     }
 }

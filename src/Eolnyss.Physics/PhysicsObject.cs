@@ -14,6 +14,8 @@ namespace Eolnyss.Physics
             this.box.OnCollision += OnCollision;
         }
 
+        public abstract void OnCollision(object sender, CollisionArgs collisionArgs);
+
         public IBox Box => this.box;
 
         public virtual Vector2 Position => this.box.Position;
@@ -26,14 +28,17 @@ namespace Eolnyss.Physics
 
         public abstract void Draw(GameTime gameTime, SpriteBatch spriteBatch);
 
-        public abstract void OnCollision(object sender, CollisionArgs collisionArgs);
-
         public void Push(Vector2 movement)
         {
             float x = (float)Math.Round(Position.X + movement.X);
             float y = (float)Math.Round(Position.Y + movement.Y);
 
             this.box.Move(x, y);
+        }
+
+        public void Move(float x, float y)
+        {
+            throw new NotImplementedException();
         }
     }
 }
