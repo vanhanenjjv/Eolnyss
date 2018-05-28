@@ -2,6 +2,7 @@
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
+using Microsoft.Xna.Framework.Media;
 using MonoGame.Extended;
 
 namespace Eolnyss
@@ -16,6 +17,8 @@ namespace Eolnyss
 
         Level level;
         Camera2D camera;
+
+        Song song;
 
         public Game1()
         {
@@ -48,6 +51,9 @@ namespace Eolnyss
             spriteBatch = new SpriteBatch(GraphicsDevice);
 
             // TODO: use this.Content to load your game content here
+            song = Content.Load<Song>("Audio/BumbleBee");
+            MediaPlayer.Play(song);
+
             Assets.LoadContent(Content);
         }
 

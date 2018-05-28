@@ -8,9 +8,11 @@ namespace Eolnyss.Prefabs
     {
         private BlockType type;
 
-        public Block(IBox box, BlockType type) : base(box)
+        public Block(IWorld world, float x, float y, float width, float height, BlockType type)
+            : base(world, x, y, width, height)
         {
             this.type = type;
+            OnCollision += Collision;
         }
 
         public BlockType Type => this.type;
@@ -29,17 +31,22 @@ namespace Eolnyss.Prefabs
                 case BlockType.Spike:
                     spriteBatch.Draw(Assets.SpikeTexture, Bounds, Color.White);
                     break;
+                case BlockType.Goal:
+                    spriteBatch.Draw(Assets.GoalTexture, Bounds, Color.White);
+                    break;
             }
         }
 
-        public override void OnCollision(object sender, CollisionArgs collisionArgs)
+        public void Collision(object sender, CollisionArgs collisionArgs)
         {
+
         }   
     }
 
     public enum BlockType
     {
         Platform,
-        Spike
+        Spike,
+        Goal
     }
 }
