@@ -4,7 +4,7 @@ using System;
 
 namespace Eolnyss.Physics
 {
-    public interface IPhysicsObject : IGameObject, IBox
+    public interface IPhysicsObject : IGameObject
     {
         void Push(Vector2 movement);
     }

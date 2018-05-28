@@ -8,11 +8,9 @@ namespace Eolnyss.Prefabs
     {
         private BlockType type;
 
-        public Block(IWorld world, float x, float y, float width, float height, BlockType type)
-            : base(world, x, y, width, height)
+        public Block(IBox box, BlockType type) : base(box)
         {
             this.type = type;
-            OnCollision += Collision;
         }
 
         public BlockType Type => this.type;
@@ -37,7 +35,7 @@ namespace Eolnyss.Prefabs
             }
         }
 
-        public void Collision(object sender, CollisionArgs collisionArgs)
+        public override void OnCollision(object sender, CollisionArgs collisionArgs)
         {
 
         }   

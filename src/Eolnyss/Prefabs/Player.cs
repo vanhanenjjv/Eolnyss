@@ -8,7 +8,7 @@ using System.Diagnostics;
 
 namespace Eolnyss.Prefabs
 {
-    public class Player : PhysicsObject, IBox
+    public class Player : PhysicsObject
     {
         private readonly Vector2 start;
 
@@ -25,11 +25,9 @@ namespace Eolnyss.Prefabs
 
         private Vector2 movement;
 
-        public Player(IWorld world, float x, float y, float width, float height, Vector2 start)
-            : base(world, x, y, width, height)
+        public Player(IBox box, Vector2 start) : base(box)
         {
             this.start = start;
-            OnCollision += Collision;
 
             Reset(start);
         }
@@ -79,7 +77,7 @@ namespace Eolnyss.Prefabs
 
         }
 
-        public override void Collision(object sender, CollisionArgs collisionArgs)
+        public override void OnCollision(object sender, CollisionArgs collisionArgs)
         {
             var side = collisionArgs.Side;
 

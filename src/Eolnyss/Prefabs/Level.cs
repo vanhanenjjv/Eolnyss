@@ -32,9 +32,8 @@ namespace Eolnyss.Prefabs
 
             LoadLevel("");
 
-            this.player = new Player(world, 160, 80, 40, 40, start);
-
-            
+            var box = world.Create(start.X, start.Y, 40, 40);
+            this.player = new Player(box, start);
         }
 
         public override Vector2 Position => new Vector2(0, 0);
@@ -106,11 +105,14 @@ namespace Eolnyss.Prefabs
                     start = new Vector2(x * 40, y * 40);
                     return null;
                 case 'g':
-                    return new Block(world, x * 40, x * 40, 40, 40, BlockType.Goal);
+                    var box1 = world.Create(x * 40, x * 40, 40, 40);
+                    return new Block(box1, BlockType.Goal);
                 case 'v':
-                    return new Block(world, x * 40, x * 40, 40, 40, BlockType.Goal);
+                    var box2 = world.Create(x * 40, x * 40, 40, 40);
+                    return new Block(box2, BlockType.Goal);
                 case 'x':
-                    return new Block(world, x * 40, x * 40, 40, 40, BlockType.Goal);
+                    var box3 = world.Create(x * 40, x * 40, 40, 40);
+                    return new Block(box3, BlockType.Goal);
                 default:
                     throw new Exception();
             }
