@@ -1,9 +1,12 @@
 ﻿using Microsoft.Xna.Framework;
+using System;
 
 namespace Eolnyss.Physics
 {
     public interface IBox
     {
+        event EventHandler<CollisionArgs> OnCollision;
+
         Vector2 Position { get; }
 
         Vector2 Size { get; }

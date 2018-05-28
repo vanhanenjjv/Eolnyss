@@ -1,4 +1,5 @@
-﻿using Microsoft.Xna.Framework;
+﻿using Eolnyss.Prefabs;
+using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 
@@ -12,10 +13,14 @@ namespace Eolnyss
         GraphicsDeviceManager graphics;
         SpriteBatch spriteBatch;
 
+        Level level;
+
         public Game1()
         {
             graphics = new GraphicsDeviceManager(this);
             Content.RootDirectory = "Content";
+
+            this.level = new Level();
         }
 
         /// <summary>
@@ -41,6 +46,7 @@ namespace Eolnyss
             spriteBatch = new SpriteBatch(GraphicsDevice);
 
             // TODO: use this.Content to load your game content here
+            Assets.LoadContent(Content);
         }
 
         /// <summary>
@@ -63,6 +69,7 @@ namespace Eolnyss
                 Exit();
 
             // TODO: Add your update logic here
+            this.level.Update(gameTime);
 
             base.Update(gameTime);
         }
@@ -75,7 +82,12 @@ namespace Eolnyss
         {
             GraphicsDevice.Clear(Color.CornflowerBlue);
 
+            spriteBatch.Begin();
+
             // TODO: Add your drawing code here
+            this.level.Draw(gameTime, spriteBatch);
+
+            spriteBatch.End();
 
             base.Draw(gameTime);
         }

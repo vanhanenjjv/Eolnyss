@@ -41,7 +41,11 @@
     <ApplicationManifest>app.manifest</ApplicationManifest>
   </PropertyGroup>
   <ItemGroup>
+    <Compile Include="Assets.cs" />
     <Compile Include="Game1.cs" />
+    <Compile Include="Prefabs\Block.cs" />
+    <Compile Include="Prefabs\Level.cs" />
+    <Compile Include="Prefabs\Player.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
@@ -58,6 +62,16 @@
   <ItemGroup>
     <MonoGameContentReference Include="Content\Content.mgcb" />
     <None Include="app.manifest" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Eolnyss.Core\Eolnyss.Core.csproj">
+      <Project>{D8C6B8C1-18A5-49E0-A7A2-CA60A7E7D544}</Project>
+      <Name>Eolnyss.Core</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Eolnyss.Physics\Eolnyss.Physics.csproj">
+      <Project>{066A9E57-0A1A-4B76-B59F-DB118B821557}</Project>
+      <Name>Eolnyss.Physics</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Import Project="$(MSBuildExtensionsPath)\MonoGame\v3.0\MonoGame.Content.Builder.targets" />

@@ -1,21 +1,20 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Microsoft.Xna.Framework;
+﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
+using System;
 
 namespace Eolnyss.Physics
 {
     public abstract class PhysicsObject : IPhysicsObject
     {
-        IBox box;
+        private IBox box;
 
         public PhysicsObject(IBox box)
         {
             this.box = box;
+            this.box.OnCollision += OnCollision;
         }
+
+        public IBox Box => this.box;
 
         public virtual Vector2 Position => this.box.Position;
 
@@ -27,10 +26,14 @@ namespace Eolnyss.Physics
 
         public abstract void Draw(GameTime gameTime, SpriteBatch spriteBatch);
 
-        public void Push(Vector2 force)
+        public abstract void OnCollision(object sender, CollisionArgs collisionArgs);
+
+        public void Push(Vector2 movement)
         {
-            var newPosition = Position + force;
-            this.box.Move(newPosition.X, newPosition.Y);
+            float x = (float)Math.Round(Position.X + movement.X);
+            float y = (float)Math.Round(Position.Y + movement.Y);
+
+            this.box.Move(x, y);
         }
     }
 }

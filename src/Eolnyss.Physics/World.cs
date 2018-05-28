@@ -11,6 +11,8 @@ namespace Eolnyss.Physics
             this.boxes = new List<IBox>();
         }
 
+        public IEnumerable<IBox> Boxes => this.boxes;
+
         public IBox Create(float x, float y, float width, float height)
         {
             IBox box = new Box(this, x, y, width, height);
