@@ -1,5 +1,4 @@
-﻿using Eolnyss.Core.Helpers;
-using Microsoft.Xna.Framework;
+﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using System;
 
@@ -14,6 +13,10 @@ namespace Eolnyss.Physics
             this.box = box;
             this.box.OnCollision += OnCollision;
         }
+
+        public abstract void OnCollision(object sender, CollisionArgs collisionArgs);
+
+        public IBox Box => this.box;
 
         public virtual Vector2 Position => this.box.Position;
 
@@ -35,9 +38,7 @@ namespace Eolnyss.Physics
 
         public void Move(float x, float y)
         {
-            this.box.Move(x, y);
+            throw new NotImplementedException();
         }
-
-        public abstract void OnCollision(object sender, CollisionArgs collisionArgs);
     }
 }

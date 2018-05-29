@@ -117,7 +117,7 @@ namespace Eolnyss.Prefabs
 
         public void Reset(Vector2 start)
         {
-            Move(start.X, start.Y);
+            Box.Move(start.X, start.Y);
         }
     }
 }
