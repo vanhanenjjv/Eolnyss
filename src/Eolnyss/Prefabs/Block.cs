@@ -1,10 +1,11 @@
 ﻿using Eolnyss.Physics;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
+using System;
 
 namespace Eolnyss.Prefabs
 {
-    public class Block : PhysicsObject
+    public class Block : PhysicsObject, ICloneable
     {
         private BlockType type;
 
@@ -38,8 +39,14 @@ namespace Eolnyss.Prefabs
 
         public override void OnCollision(object sender, CollisionArgs collisionArgs)
         {
+        }
 
-        }   
+        public object Clone()
+        {
+            var box = Box.World.Create(Position.X, Position.Y, Size.X, Size.Y);
+
+            return new Block(box, Type);
+        }
     }
 
     public enum BlockType

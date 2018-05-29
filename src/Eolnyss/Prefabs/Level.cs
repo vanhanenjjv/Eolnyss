@@ -33,8 +33,10 @@ namespace Eolnyss.Prefabs
             LoadLevel("");
 
             var box = this.world.Create(start.X, start.Y, 40, 40);
-            this.player = new Player(box, start);
+            this.player = new Player(box, this);
         }
+
+        public Vector2 Start => this.start;
 
         public override Vector2 Position => new Vector2(0, 0);
 

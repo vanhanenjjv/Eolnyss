@@ -9,15 +9,17 @@ using System.Diagnostics;
 
 namespace Eolnyss.Prefabs
 {
-    public class Player : PhysicsObject
+    class Player : PhysicsObject
     {
-        private readonly Vector2 start;
+        private readonly Level level;
 
         private const float MaxJumpTime = 0.3f;
         private const float JumpLaunchVelocity = -2040.0f;
         private const float Gravity = 21000.0f;
         private const float MaxFallSpeed = 2000.0f;
         private const float JumpControlPower = 0.14f;
+
+        private bool isAlive;
 
         private bool isPaused;
 
@@ -28,11 +30,9 @@ namespace Eolnyss.Prefabs
 
         private Vector2 movement;
 
-        public Player(IBox box, Vector2 start) : base(box)
+        public Player(IBox box, Level level) : base(box)
         {
-            this.start = start;
-
-            Reset(start);
+            Reset(level.Start);
         }
 
         public bool IsOnGround => this.isOnGround;
@@ -44,6 +44,9 @@ namespace Eolnyss.Prefabs
 
         public override void Update(GameTime gameTime)
         {
+            if (!isAlive)
+                Reset(level.Start);
+
             if (isPaused)
                 return;
 
@@ -66,7 +69,6 @@ namespace Eolnyss.Prefabs
             }
             else
             {
-                //fallTime += elapsed * 3;
                 movement.Y = MathHelper.Clamp((movement.Y + Gravity * elapsed), -MaxFallSpeed, MaxFallSpeed);
                 jumpTime = 0.0f;
             }
@@ -82,7 +84,7 @@ namespace Eolnyss.Prefabs
         {
             if (collisionArgs.Box == null)
             {
-                Reset(start);
+                Reset(level.Start);
                 return;
             }
 
@@ -93,7 +95,7 @@ namespace Eolnyss.Prefabs
                 switch (block.Type)
                 {
                     case BlockType.Spike:
-                        Reset(start);
+                        Reset(level.Start);
                         break;
                     case BlockType.Goal:
                         isPaused = true;
@@ -126,7 +128,7 @@ namespace Eolnyss.Prefabs
                 side.HasFlag(Side.Left) ||
                 side.HasFlag(Side.Top))
             {
-                Reset(start);
+                isAlive = false;
             }  
         }
 
@@ -141,6 +143,7 @@ namespace Eolnyss.Prefabs
             Move(start.X, start.Y);
             MediaPlayer.Play(Assets.Song);
 
+            isAlive = true;
             isJumping = false;
         }
     }

@@ -5,6 +5,8 @@ namespace Eolnyss.Physics
 {
     public interface IBox
     {
+        IWorld World { get; }
+
         event EventHandler<CollisionArgs> OnCollision;
 
         Vector2 Position { get; }
