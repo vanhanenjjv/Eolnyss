@@ -10,6 +10,7 @@ namespace Eolnyss.Prefabs
 
         public Block(IBox box, BlockType type) : base(box)
         {
+            box.Data = this;
             this.type = type;
         }
 

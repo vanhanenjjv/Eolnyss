@@ -17,14 +17,16 @@ namespace Eolnyss.Physics
         private float y;
         private float width;
         private float height;
+        private object data;
 
-        public Box(IWorld world, float x, float y, float width, float height)
+        public Box(IWorld world, float x, float y, float width, float height, object data = null)
         {
             this.world = world;
             this.x = x;
             this.y = y;
             this.width = width;
             this.height = height;
+            this.data = data;
         }
 
         public Vector2 Position => new Vector2(x, y);
@@ -33,23 +35,59 @@ namespace Eolnyss.Physics
 
         public Rectangle Bounds => new Rectangle((int)x, (int)y, (int)width, (int)height);
 
+        public object Data
+        {
+            get => this.data;
+            set => this.data = value;
+        }
+
         public void Move(float x, float y)
         {
-            this.x = x;          
+            this.x = (float)Math.Round(x);          
+           
+
+            this.y = (float)Math.Round(y);
+         
+
+ 
+        }
+
+        public void Push(Vector2 movement)
+        {
+            this.x = (float)Math.Round(Position.X + movement.X);
             HandleCollisions(Axis.Horizontal);
 
-            this.y = y;
+            this.y = (float)Math.Round(Position.Y + movement.Y);
             HandleCollisions(Axis.Vertical);
+
+ 
         }
 
         public void HandleCollisions(Axis axis)
         {
+            var top = Bounds.Top;
+            var bottom = Bounds.Bottom;
+            var left = Bounds.Left;
+            var right = Bounds.Right;
+
+            if (left < 0 || world.Width < right ||
+                top < 0 || world.Height < bottom)
+            {
+                OnCollision?.Invoke(this, new CollisionArgs(null, Side.None));
+                return;
+            }
+                
+
             foreach (var box in this.world.Boxes)
             {
                 if (box.Equals(this))
                     continue;
 
-                if (!Bounds.Intersects(box.Bounds))
+                int offset = 0;
+
+                var bounds = new Rectangle(box.Bounds.X + offset / 2, box.Bounds.Y + offset / 2, box.Bounds.Width - offset, box.Bounds.Height - offset);
+
+                if (!Bounds.Intersects(bounds))
                     continue;
 
                 var depth = Bounds.GetIntersectionDepth(box.Bounds);
@@ -71,6 +109,11 @@ namespace Eolnyss.Physics
                 OnCollision?.Invoke(this, new CollisionArgs(box, side));
                 
             }
+        }
+
+        public void LidlFix()
+        {
+            OnCollision?.Invoke(null, new CollisionArgs(null, Side.None));
         }
 
         public enum Axis

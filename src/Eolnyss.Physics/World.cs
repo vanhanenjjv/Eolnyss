@@ -6,10 +6,20 @@ namespace Eolnyss.Physics
     {
         private List<IBox> boxes;
 
-        public World()
+        private float width;
+        private float height;
+
+        public World(float width, float height)
         {
+            this.width = width;
+            this.height = height;
+
             this.boxes = new List<IBox>();
         }
+
+        public float Width => width;
+
+        public float Height => height;
 
         public IEnumerable<IBox> Boxes => this.boxes;
 
@@ -20,5 +30,6 @@ namespace Eolnyss.Physics
 
             return box;
         }
+
     }
 }

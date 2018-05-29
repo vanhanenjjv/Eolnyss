@@ -28,17 +28,8 @@ namespace Eolnyss.Physics
 
         public abstract void Draw(GameTime gameTime, SpriteBatch spriteBatch);
 
-        public void Push(Vector2 movement)
-        {
-            float x = (float)Math.Round(Position.X + movement.X);
-            float y = (float)Math.Round(Position.Y + movement.Y);
+        public void Push(Vector2 movement) => Box.Push(movement);
 
-            this.box.Move(x, y);
-        }
-
-        public void Move(float x, float y)
-        {
-            throw new NotImplementedException();
-        }
+        public void Move(float x, float y) => Box.Move(x, y);    
     }
 }

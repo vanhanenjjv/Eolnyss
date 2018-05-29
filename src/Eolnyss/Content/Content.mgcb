@@ -100,6 +100,12 @@
 /processorParam:TextureFormat=Color
 /build:Sprites/forsenE.png
 
+#begin Audio/HoneyDetected.mp3
+/importer:Mp3Importer
+/processor:SongProcessor
+/processorParam:Quality=Best
+/build:Audio/HoneyDetected.mp3
+
 #begin Audio/BumbleBee.mp3
 /importer:Mp3Importer
 /processor:SongProcessor

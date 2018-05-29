@@ -8,6 +8,10 @@ namespace Eolnyss.Physics
 {
     public interface IWorld
     {
+        float Width { get; }
+
+        float Height { get; }
+
         IEnumerable<IBox> Boxes { get; }
 
         IBox Create(float x, float y, float width, float height);

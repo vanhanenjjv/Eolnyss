@@ -26,22 +26,17 @@ namespace Eolnyss.Prefabs
 
         public Level()
         {
-            this.world = new World();
+            
 
             blocks = new List<Block>();
 
-            var box = this.world.Create(160, 80, 40, 40);
-
             LoadLevel("");
 
+            var box = this.world.Create(start.X, start.Y, 40, 40);
             this.player = new Player(box, start);
-
-            
         }
 
         public override Vector2 Position => new Vector2(0, 0);
-
-        public IEnumerable<IBox> Boxes => throw new NotImplementedException();
 
         public override void Update(GameTime gameTime)
         {   
@@ -85,6 +80,8 @@ namespace Eolnyss.Prefabs
                 }
 
                 int height = lines.Count;
+
+                world = new World(width * 40, height * 40);
 
                 for (int y = 0; y < height; ++y)
                     for (int x = 0; x < width; ++x)

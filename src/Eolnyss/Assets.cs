@@ -12,6 +12,7 @@ namespace Eolnyss
         public static Texture2D GoalTexture;
 
         public static Song Song;
+        public static Song HoneyDetected;
 
         public static void LoadContent(ContentManager content)
         {
@@ -21,6 +22,7 @@ namespace Eolnyss
             GoalTexture = content.Load<Texture2D>("Sprites/Honey");
 
             Song = content.Load<Song>("Audio/BumbleBee");
+            HoneyDetected = content.Load<Song>("Audio/HoneyDetected");
         }
     }
 }

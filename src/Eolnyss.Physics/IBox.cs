@@ -14,5 +14,11 @@ namespace Eolnyss.Physics
         Rectangle Bounds { get; }
 
         void Move(float x, float y);
+
+        void Push(Vector2 movement);
+
+        void LidlFix();
+
+        object Data { get; set; }
     }
 }

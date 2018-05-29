@@ -3,6 +3,7 @@ using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
+using Microsoft.Xna.Framework.Media;
 using System;
 using System.Diagnostics;
 
@@ -17,6 +18,8 @@ namespace Eolnyss.Prefabs
         private const float Gravity = 21000.0f;
         private const float MaxFallSpeed = 2000.0f;
         private const float JumpControlPower = 0.14f;
+
+        private bool isPaused;
 
         private bool isJumping;
         private float jumpTime;
@@ -41,6 +44,9 @@ namespace Eolnyss.Prefabs
 
         public override void Update(GameTime gameTime)
         {
+            if (isPaused)
+                return;
+
             float elapsed = (float)gameTime.ElapsedGameTime.TotalSeconds;
 
             HandleInput();
@@ -72,13 +78,30 @@ namespace Eolnyss.Prefabs
             Debug.WriteLine(Position);
         }
 
-        public void LoadContent(ContentManager content)
-        {
-
-        }
-
         public override void OnCollision(object sender, CollisionArgs collisionArgs)
         {
+            if (collisionArgs.Box == null)
+            {
+                Reset(start);
+                return;
+            }
+
+            var data = collisionArgs.Box.Data;
+
+            if (data is Block block)
+            {
+                switch (block.Type)
+                {
+                    case BlockType.Spike:
+                        Reset(start);
+                        break;
+                    case BlockType.Goal:
+                        isPaused = true;
+                        MediaPlayer.Play(Assets.HoneyDetected);
+                        return;
+                }
+            }
+
             var side = collisionArgs.Side;
 
             if (side.HasFlag(Side.Top) ||
@@ -104,9 +127,7 @@ namespace Eolnyss.Prefabs
                 side.HasFlag(Side.Top))
             {
                 Reset(start);
-            }
-
-            var box = collisionArgs.Box;
+            }  
         }
 
         public void HandleInput()
@@ -117,7 +138,10 @@ namespace Eolnyss.Prefabs
 
         public void Reset(Vector2 start)
         {
-            Box.Move(start.X, start.Y);
+            Move(start.X, start.Y);
+            MediaPlayer.Play(Assets.Song);
+
+            isJumping = false;
         }
     }
 }

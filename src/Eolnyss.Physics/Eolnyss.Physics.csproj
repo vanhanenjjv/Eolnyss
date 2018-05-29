@@ -46,7 +46,6 @@
     <Compile Include="IBox.cs" />
     <Compile Include="IPhysicsObject.cs" />
     <Compile Include="IWorld.cs" />
-    <Compile Include="Movement.cs" />
     <Compile Include="PhysicsObject.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Side.cs" />
