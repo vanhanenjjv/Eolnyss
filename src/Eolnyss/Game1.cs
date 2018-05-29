@@ -22,10 +22,10 @@ namespace Eolnyss
 
         public Game1()
         {
+            Window.Title = "forsenBee";
+
             graphics = new GraphicsDeviceManager(this);
             Content.RootDirectory = "Content";
-
-            
         }
 
         /// <summary>
