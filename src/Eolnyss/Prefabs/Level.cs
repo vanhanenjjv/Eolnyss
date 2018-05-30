@@ -2,6 +2,7 @@
 using Eolnyss.Physics;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
+using Microsoft.Xna.Framework.Media;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -24,6 +25,8 @@ namespace Eolnyss.Prefabs
         public Level(string levelName)
         {
             blocks = new List<Block>();
+
+            MediaPlayer.Play(Assets.Song);
 
             LoadLevel(levelName);
 

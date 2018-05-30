@@ -67,6 +67,8 @@ namespace Eolnyss.Physics
 
         public void HandleCollisions(Axis axis)
         {
+            #region Lidl fix #32
+
             var top = Bounds.Top;
             var bottom = Bounds.Bottom;
             var left = Bounds.Left;
@@ -78,7 +80,8 @@ namespace Eolnyss.Physics
                 OnCollision?.Invoke(this, new CollisionArgs(null, Side.None));
                 return;
             }
-                
+
+            #endregion
 
             foreach (var box in this.world.Boxes)
             {

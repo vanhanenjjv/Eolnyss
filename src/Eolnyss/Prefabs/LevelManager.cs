@@ -8,13 +8,13 @@ namespace Eolnyss.Prefabs
     {
         private const int AmountOfLevels = 2;
 
-        private static int levelNumber = 0;
+        private static int levelNumber;
 
         private static Level currentLevel;
 
         static LevelManager()
         {
-            levelNumber = 0;
+            levelNumber = 1;
 
             RestartLevel();
         }
