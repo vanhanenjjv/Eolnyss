@@ -14,7 +14,7 @@ namespace Eolnyss.Prefabs
 
         static LevelManager()
         {
-            levelNumber = 1;
+            levelNumber = 0;
 
             RestartLevel();
         }
