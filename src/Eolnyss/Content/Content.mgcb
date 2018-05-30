@@ -13,9 +13,6 @@
 
 #---------------------------------- Content ---------------------------------#
 
-#begin Levels/level1.txt
-/copy:Levels/level1.txt
-
 #begin Sprites/forsen1337.png
 /importer:TextureImporter
 /processor:TextureProcessor
@@ -111,4 +108,10 @@
 /processor:SongProcessor
 /processorParam:Quality=Best
 /build:Audio/BumbleBee.mp3
+
+#begin Levels/level0.txt
+/copy:Levels/level0.txt
+
+#begin Levels/level1.txt
+/copy:Levels/level1.txt
 

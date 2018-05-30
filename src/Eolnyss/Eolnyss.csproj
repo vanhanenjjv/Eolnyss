@@ -45,6 +45,7 @@
     <Compile Include="Game1.cs" />
     <Compile Include="Prefabs\Block.cs" />
     <Compile Include="Prefabs\Level.cs" />
+    <Compile Include="Prefabs\LevelManager.cs" />
     <Compile Include="Prefabs\Player.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

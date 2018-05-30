@@ -19,7 +19,7 @@ namespace Eolnyss.Prefabs
         private const float MaxFallSpeed = 2000.0f;
         private const float JumpControlPower = 0.14f;
 
-        private bool isAlive;
+        private bool isAlive = true;
 
         private bool isPaused;
 
@@ -33,7 +33,7 @@ namespace Eolnyss.Prefabs
         public Player(IBox box, Level level) : base(box)
         {
             this.level = level;
-            Reset(level.Start);
+            Move(level.Start.X, level.Start.Y);
         }
 
         public bool IsOnGround => this.isOnGround;
@@ -46,7 +46,7 @@ namespace Eolnyss.Prefabs
         public override void Update(GameTime gameTime)
         {
             if (!isAlive)
-                Reset(level.Start);
+                LevelManager.RestartLevel();
 
             if (isPaused)
                 return;
@@ -83,7 +83,7 @@ namespace Eolnyss.Prefabs
         {
             if (collisionArgs.Box == null)
             {
-                Reset(level.Start);
+                LevelManager.RestartLevel();
                 return;
             }
 
@@ -94,11 +94,12 @@ namespace Eolnyss.Prefabs
                 switch (block.Type)
                 {
                     case BlockType.Spike:
-                        Reset(level.Start);
+                        LevelManager.RestartLevel();
                         break;
                     case BlockType.Goal:
                         isPaused = true;
                         MediaPlayer.Play(Assets.Victory);
+                        MediaPlayer.MediaStateChanged += MediaStateChanged;
                         return;
                 }
             }
@@ -131,19 +132,18 @@ namespace Eolnyss.Prefabs
             }  
         }
 
+        private void MediaStateChanged(object sender, EventArgs e)
+        {
+            LevelManager.NextLevel();
+
+            // Lidl fix.
+            MediaPlayer.MediaStateChanged -= MediaStateChanged;
+        }
+
         public void HandleInput()
         {
             if (Keyboard.GetState().IsKeyDown(Keys.Space) && IsOnGround)
                 isJumping = true;
-        }
-
-        public void Reset(Vector2 start)
-        {
-            Move(start.X, start.Y);
-            MediaPlayer.Play(Assets.Song);
-
-            isAlive = true;
-            isJumping = false;
         }
     }
 }

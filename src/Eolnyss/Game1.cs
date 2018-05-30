@@ -18,16 +18,12 @@ namespace Eolnyss
         Level level;
         Camera2D camera;
 
-        int levelNumber;
-
         public Game1()
         {
             Window.Title = "forsenBee";
 
             graphics = new GraphicsDeviceManager(this);
             Content.RootDirectory = "Content";
-
-            levelNumber = 0;
         }
 
         /// <summary>
@@ -39,7 +35,6 @@ namespace Eolnyss
         protected override void Initialize()
         {
             // TODO: Add your initialization logic here
-            this.level = new Level();
             camera = new Camera2D(graphics.GraphicsDevice);
 
             base.Initialize();
@@ -80,8 +75,8 @@ namespace Eolnyss
                 Exit();
 
             // TODO: Add your update logic here
-            this.level.Update(gameTime);
-            camera.LookAt(level.Player.Position);
+            LevelManager.CurrentLevel.Update(gameTime);
+            camera.LookAt(LevelManager.CurrentLevel.Player.Position);
 
             base.Update(gameTime);
         }
@@ -99,7 +94,7 @@ namespace Eolnyss
             spriteBatch.Begin(transformMatrix: viewMatrix);
 
             // TODO: Add your drawing code here
-            this.level.Draw(gameTime, spriteBatch);
+            LevelManager.CurrentLevel.Draw(gameTime, spriteBatch);
 
             spriteBatch.End();
 

@@ -8,7 +8,7 @@ using System.IO;
 
 namespace Eolnyss.Prefabs
 {
-    class Level : GameObject
+    class Level
     {
         private IWorld world;
 
@@ -21,11 +21,11 @@ namespace Eolnyss.Prefabs
         private Vector2 start;
         private Vector2 goal;
 
-        public Level()
+        public Level(string levelName)
         {
             blocks = new List<Block>();
 
-            LoadLevel("");
+            LoadLevel(levelName);
 
             var box = this.world.Create(start.X, start.Y, 40, 40);
             this.player = new Player(box, this);
@@ -33,9 +33,7 @@ namespace Eolnyss.Prefabs
 
         public Vector2 Start => this.start;
 
-        public override Vector2 Position => new Vector2(0, 0);
-
-        public override void Update(GameTime gameTime)
+        public void Update(GameTime gameTime)
         {   
             this.player.Update(gameTime);
 
@@ -43,7 +41,7 @@ namespace Eolnyss.Prefabs
                 block.Update(gameTime);
         }
 
-        public override void Draw(GameTime gameTime, SpriteBatch spriteBatch)
+        public void Draw(GameTime gameTime, SpriteBatch spriteBatch)
         {
             this.player.Draw(gameTime, spriteBatch);
 
@@ -53,7 +51,7 @@ namespace Eolnyss.Prefabs
 
         public void LoadLevel(string name)
         {
-            var file = TitleContainer.OpenStream("Content/Levels/level1.txt");
+            var file = TitleContainer.OpenStream($"Content/Levels/{name}.txt");
             LoadLevel(file);
         }
 
