@@ -29,6 +29,8 @@ namespace Eolnyss.Physics
             this.data = data;
         }
 
+        public IWorld World => this.world;
+
         public Vector2 Position => new Vector2(x, y);
 
         public Vector2 Size => new Vector2(width, height);
@@ -107,7 +109,6 @@ namespace Eolnyss.Physics
                 }
 
                 OnCollision?.Invoke(this, new CollisionArgs(box, side));
-                
             }
         }
 

@@ -32,6 +32,7 @@ namespace Eolnyss.Prefabs
 
         public Player(IBox box, Level level) : base(box)
         {
+            this.level = level;
             Reset(level.Start);
         }
 
@@ -76,8 +77,6 @@ namespace Eolnyss.Prefabs
             movement *= elapsed;
 
             Push(movement);
-
-            Debug.WriteLine(Position);
         }
 
         public override void OnCollision(object sender, CollisionArgs collisionArgs)
@@ -99,7 +98,7 @@ namespace Eolnyss.Prefabs
                         break;
                     case BlockType.Goal:
                         isPaused = true;
-                        MediaPlayer.Play(Assets.HoneyDetected);
+                        MediaPlayer.Play(Assets.Victory);
                         return;
                 }
             }

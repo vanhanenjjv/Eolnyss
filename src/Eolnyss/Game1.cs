@@ -18,7 +18,7 @@ namespace Eolnyss
         Level level;
         Camera2D camera;
 
-        Song song;
+        int levelNumber;
 
         public Game1()
         {
@@ -26,6 +26,8 @@ namespace Eolnyss
 
             graphics = new GraphicsDeviceManager(this);
             Content.RootDirectory = "Content";
+
+            levelNumber = 0;
         }
 
         /// <summary>
@@ -53,8 +55,7 @@ namespace Eolnyss
             spriteBatch = new SpriteBatch(GraphicsDevice);
 
             // TODO: use this.Content to load your game content here
-            song = Content.Load<Song>("Audio/BumbleBee");
-            MediaPlayer.Play(song);
+            MediaPlayer.Play(Assets.Song);
 
             Assets.LoadContent(Content);
         }
