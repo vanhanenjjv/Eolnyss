@@ -46,12 +46,7 @@ namespace Eolnyss.Physics
         public void Move(float x, float y)
         {
             this.x = (float)Math.Round(x);          
-           
-
             this.y = (float)Math.Round(y);
-         
-
- 
         }
 
         public void Push(Vector2 movement)
@@ -61,8 +56,6 @@ namespace Eolnyss.Physics
 
             this.y = (float)Math.Round(Position.Y + movement.Y);
             HandleCollisions(Axis.Vertical);
-
- 
         }
 
         public void HandleCollisions(Axis axis)
