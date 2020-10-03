@@ -1,2 +1,2 @@
-#Eolnyss
-This is a game 
+# Eolnyss
+This is a game :)
